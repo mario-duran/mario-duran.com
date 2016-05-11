@@ -10,19 +10,44 @@
 angular.module('mdComApp')
   .controller('ContactCtrl', function ($scope, $http, $location, navigationService) {
     navigationService.navSelection('CONTACT');
+    $scope.submitting = false;
+    $scope.sendText = 'Send Message';
     $scope.contactInfo = {
-      name:'',
-      email:'',
-      message:''
+      name:{
+        value:'',
+        error:false,
+      },
+      email:{
+        value:'',
+        error:false,
+      },
+      message:{
+        value:'',
+        error:false,
+      }
+    };
+
+    var setErrorFalse = function() {
+      $scope.contactInfo.name.error = $scope.contactInfo.email.error = $scope.contactInfo.message.error = false;
     };
 
     $scope.sendMessage = function() {
-      //IF PASS THE VALIDATION sendMessage
-      console.log($scope.contactForm);
+      $scope.$broadcast('show-errors-check-validity'); //BRODACAST TO LET THE showErrors DIRECTIVE WHEN TO DISPLAY ERRORS
+      $scope.submitting = true;
+      $scope.sendText = 'Sending...';
+      setErrorFalse();
+
       if (!$scope.contactForm.$valid) {
         //ERRORS
+        $scope.contactInfo.name.error = $scope.contactForm.name.$invalid;
+        $scope.contactInfo.email.error = $scope.contactForm.email.$invalid;
+        $scope.contactInfo.message.error = $scope.contactForm.message.$invalid;
 
+        $scope.submitting = false;
+        $scope.sendText = 'Send Message';
+        
       } else {
+        $scope.submitting = true;
         var config = {
               headers : {
                   'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;'

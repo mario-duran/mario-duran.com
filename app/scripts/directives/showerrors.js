@@ -9,10 +9,19 @@
 angular.module('mdComApp')
   .directive('showErrors', function () {
     return {
-      template: '<div></div>',
-      restrict: 'E',
-      link: function postLink(scope, element, attrs) {
-        element.text('this is the showErrors directive');
+      restrict: 'A',
+      link: function (scope, el) {
+        var inputEl   = el[0];
+        var inputNgEl = angular.element(inputEl);
+
+        scope.$on('show-errors-check-validity', function() {
+          el.toggleClass('alert-danger',inputNgEl.hasClass('ng-invalid'));
+        });
+
+        scope.$on('cleanup-errors-check-validity', function() {
+          inputNgEl.removeClass('alert-danger');
+        });
+
       }
     };
   });
