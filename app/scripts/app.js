@@ -53,24 +53,4 @@ angular
       .otherwise({
         redirectTo: '/'
       });
-  }).service('navController', function(){
-    return {
-      navSelection: function(imAt) {
-      
-        var navBar = angular.element(document.getElementById('topNavigation'));
-        var navElements = navBar.find('li');
-
-        navElements.removeClass('active'); //CLEAN UP
-
-        if(imAt === 'HOME') {
-          navBar.removeClass('navbar-shrink'); //CASE IS HOME CHANGE TO THE MAIN NAV
-        } else {
-          navBar.addClass('navbar-shrink');
-          navBar.find('.' + imAt).addClass('active');
-        }
-
-        return true;
-      }
-
-    };
   });

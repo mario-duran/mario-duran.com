@@ -8,6 +8,6 @@
  * Controller of the mdComApp
  */
 angular.module('mdComApp')
-  .controller('PortfolioCtrl', function (navController) {
-    navController.navSelection('PORTFOLIO');
+  .controller('PortfolioCtrl', function (navigationService) {
+    navigationService.navSelection('PORTFOLIO');
   });
