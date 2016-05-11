@@ -8,6 +8,6 @@
  * Controller of the mdComApp
  */
 angular.module('mdComApp')
-  .controller('AboutCtrl', function ($scope, navController) {
+  .controller('AboutCtrl', function (navController) {
     navController.navSelection('ABOUT');
   });
