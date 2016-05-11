@@ -12,6 +12,9 @@ angular.module('mdComApp')
     navigationService.navSelection('CONTACT');
     $scope.submitting = false;
     $scope.sendText = 'Send Message';
+    $scope.sentSuccess = false;
+    $scope.sentError = false;
+
     $scope.contactInfo = {
       name:{
         value:'',
@@ -31,6 +34,12 @@ angular.module('mdComApp')
       $scope.contactInfo.name.error = $scope.contactInfo.email.error = $scope.contactInfo.message.error = false;
     };
 
+    var resetForm = function() {
+      $scope.submitting = false;
+      $scope.sendText = 'Send Message';
+      $scope.contactInfo.name.value = $scope.contactInfo.email.value = $scope.contactInfo.message.value = '';
+    };
+
     $scope.sendMessage = function() {
       $scope.$broadcast('show-errors-check-validity'); //BRODACAST TO LET THE showErrors DIRECTIVE WHEN TO DISPLAY ERRORS
       $scope.submitting = true;
@@ -45,7 +54,7 @@ angular.module('mdComApp')
 
         $scope.submitting = false;
         $scope.sendText = 'Send Message';
-        
+
       } else {
         $scope.submitting = true;
         var config = {
@@ -54,16 +63,24 @@ angular.module('mdComApp')
               }
           };
 
-        $http.post('contact_me.php', $scope.contactInfo, config)
+        var dataContent = 'dataContent=' + JSON.stringify($scope.contactInfo);
+
+        $http.post('contact_me.php', dataContent, config)
            .then(
                function(response){
-                 console.log(response);
-                 //$location.path('/confirmation');
+                 if(response.data.message==='sent OK') {
+                   $scope.sentSuccess = true;
+                 } else {
+                   $scope.sentError = true;
+                 }
+                 resetForm();
                },
                function(response){
                  // failure callback
                  console.log(response);
-                 //$location.path('/confirmation');
+                 $scope.sentError = true;
+                 resetForm();
+
                }
             );
       }
