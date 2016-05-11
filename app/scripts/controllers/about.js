@@ -8,10 +8,6 @@
  * Controller of the mdComApp
  */
 angular.module('mdComApp')
-  .controller('AboutCtrl', function () {
-    this.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
+  .controller('AboutCtrl', function ($scope, navController) {
+    navController.navSelection('ABOUT');
   });

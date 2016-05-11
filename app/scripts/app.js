@@ -33,4 +33,20 @@ angular
       .otherwise({
         redirectTo: '/'
       });
+  }).service('navController', function(){
+    return {
+      navSelection: function(imIn) {
+        console.log(imIn);
+        var navBar = angular.element(document.getElementById('topNavigation'));
+
+        if(imIn === 'HOME') {
+          navBar.removeClass('navbar-shrink');
+
+        } else {
+          navBar.addClass('navbar-shrink');
+        }
+        return true;
+      }
+
+    };
   });
