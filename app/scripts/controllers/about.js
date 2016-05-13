@@ -8,6 +8,11 @@
  * Controller of the mdComApp
  */
 angular.module('mdComApp')
-  .controller('AboutCtrl', function (navigationService) {
-    navigationService.navSelection('ABOUT');
+  .controller('AboutCtrl', function ($scope, $window) {
+    //navigationService.navSelection('ABOUT');
+    $scope.$emit('navEvent', { loc: 'about' });
+
+    $scope.goLinkedin = function() {
+       $window.open('https://www.linkedin.com/in/mario-alejandro-duran-406bb923', '_blank'); // in new tab
+    };
   });

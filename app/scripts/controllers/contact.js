@@ -8,8 +8,10 @@
  * Controller of the mdComApp
  */
 angular.module('mdComApp')
-  .controller('ContactCtrl', function ($scope, $http, $location, navigationService) {
-    navigationService.navSelection('CONTACT');
+  .controller('ContactCtrl', function ($scope, $http) {
+
+    $scope.$emit('navEvent', { loc: 'contact' });
+
     $scope.submitting = false;
     $scope.sendText = 'Send Message';
     $scope.sentSuccess = false;

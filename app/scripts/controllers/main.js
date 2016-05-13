@@ -8,6 +8,7 @@
  * Controller of the mdComApp
  */
 angular.module('mdComApp')
-  .controller('MainCtrl', function (navigationService) {
-    navigationService.navSelection('HOME');
+  .controller('MainCtrl', function ($scope) {
+    $scope.$emit('navEvent', { loc: 'home' });
+    //navigationService.navSelection('HOME');
   });
