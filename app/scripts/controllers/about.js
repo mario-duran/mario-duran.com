@@ -12,6 +12,12 @@ angular.module('mdComApp')
     //navigationService.navSelection('ABOUT');
     $scope.$emit('navEvent', { loc: 'about' });
 
+    $scope.gotoURL = function(URL) {
+      if(URL!=='') {
+         $window.open(URL, '_blank'); // in new tab
+      }
+    };
+
     $scope.goLinkedin = function() {
        $window.open('https://www.linkedin.com/in/mario-alejandro-duran-406bb923', '_blank'); // in new tab
     };
